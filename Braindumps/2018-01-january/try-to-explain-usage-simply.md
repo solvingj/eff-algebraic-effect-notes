@@ -4,16 +4,16 @@ Here's an example from the C# implementation where Eff is used to model reading 
 
 https://github.com/nessos/Eff/blob/master/src/examples/Eff.Examples.Config/Program.cs
 
- 	
-From this example, it seems the way to implement Eff is to create a bunch of related `Handler` classes and `Effect` classes, each of which encapsulates a small subset of related "effectful work" in your program. These classes need to extend `Handler` and `Effect` interfaces, and implement/override the single fundamental method of a `Handler`: the `Handle()` method.  The "novel pattern" is: 
+(Note, the below isn't quite accurate, I see now how the Eff works, so I have to re-write this)
+From this example, it seems the way to implement Eff is to use the two provided abstract base classes to derive a bunch of related `Handler` and `Effect` classes.  The individual `Effect` classes encapsulate the data/state that you want to get back from operations, and the `Handler` encapsulates the behavior/functions for a related set of `Effect` classes.  a `Handler`: the `Handle()` method.  Finally, there's the `Eff<T>` class. The pattern for using these together becomes: 
 
 1. Create an instance of a custom `Handler<T>` class
-2. Create an instance of the related custom `Effect<T>` with the same type `T`. 
+2. Create an instance of the related custom `Effect<T>`
 3. Call the `Handle()` method, of the `Handler<T>` instance, passing it the instance of `Effect<T>`
-4. Crucially, the required and manual last step of every `Handle()` method needs to be to call the built-in `SetResult()` method of the `Effect` instance.  
+4. Crucially, the required and manual last step of every `Handle()` method needs to be to call the built-in `SetResult()` method of the `Effect<T>` instance.  
 5. Crucially, you don't return anything from Handle (either `void` or `Task`).
 
-So, lets imagine some other very common system operations.  I can imagine a nuget package called `FileIOEffect`.  If it's thorough, it will try to encapsulate every operation you might want do with FileIO.  This would include a `ReadFileEffect`, `WriteFileEffect`, and perhaps a `ReadAllToString` effect.  Each with slightly different member variables to capture whatever "result type" makes sense.  Then, it would need a `FileIOHandler`.  The interesting thing is that the `FileIOHandler` is that you needs to use a `switch` statement to pattern match on all the possible related `Effect` subtypes, and perform the appropriate logic inside the `case` statements.  I imagine the `case` bodies will often be extracted to static method in the handler class.  Again, the last part is also intereseting, you won't be returning values from these functions, you have to remember to use `SetResult<T>(whatever_you_want_returned)`. 
+So, lets imagine some other very common system operations.  I can imagine a nuget package called `FileIOEffect`.  If it's thorough, it will try to encapsulate every operation you might want do with FileIO.  This would include a `ReadFileEffect`, `WriteFileEffect`, and perhaps a `ReadAllToStringEffect`.  Each with slightly different member variables to capture whatever "result type" makes sense.  Then, it would need a `FileIOHandler`.  The interesting thing about the `FileIOHandler` is that you needs to use a `switch` statement to pattern match on all the possible related `Effect` subtypes, and perform the appropriate logic inside the `case` statements.  I imagine the `case` bodies will often be extracted to static method in the handler class.  Again, the last part is also intereseting, you won't be returning values from these functions, you have to remember to use `SetResult<T>(whatever_you_want_returned)`. 
 
 ## Finding Familiarity  
 
