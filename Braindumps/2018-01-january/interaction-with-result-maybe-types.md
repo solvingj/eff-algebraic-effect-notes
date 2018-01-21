@@ -1,0 +1,3 @@
+## Effect<T> Interaction with Result<T>, Maybe<T>, Exceptional<T>, etc. 
+
+It seems to me that one of the important characteristics of the Effects and Handlers abstractions is that they are orthagonal and fully compatible with any other types, including these monads.  I have the suspicion that using them together will result in code that works elegantly, consistently, and composes well, but perhaps there are disadvantages I will discover.  Perhaps the method signatures will get even more verbose than they already are (for C#), perhaps intellisense will start to struggle with the type-inference at a certain point.  Not sure. 
