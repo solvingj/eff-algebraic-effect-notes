@@ -2,7 +2,7 @@
 
 Here's an example from the C# implementation where Eff is used to model reading data from Asp.Net's `AppSettings`. This is a very common "effectful task", basically identical to reading environment variables, so in theory the pattern would be virtually identical. 
 
-	https://github.com/nessos/Eff/blob/master/src/examples/Eff.Examples.Config/Program.cs
+https://github.com/nessos/Eff/blob/master/src/examples/Eff.Examples.Config/Program.cs
 
  	
 From this example, it seems the way to implement Eff is to create a bunch of related `Handler` classes and `Effect` classes, each of which encapsulates a small subset of related "effectful work" in your program. These classes need to extend `Handler` and `Effect` interfaces, and implement/override the single fundamental method of a `Handler`: the `Handle()` method.  The "novel pattern" is: 
@@ -17,7 +17,7 @@ So, lets imagine some other very common system operations.  I can imagine a nuge
 
 ## Finding Familiarity  
 
-This whole formalized pattern taken together is unique, but there are familiar pieces here.  In one respect, it has elements of the "Execute around" pattern. In another respect, it's shares some elements with the `out parameters` used in C#.   It also has an element of the visitor pattern based on the effect subtypes.  It seems like a kind of clever strategy and convention, but unlike the majority of other "clever strategies" I've seen, this one comes based on a complete algebra, and a massive body of successful research and trial. In C#, the implementation uses a lot of interface and inheritence.  I guess in FP languages, they would use higher-kinded types to achieve the same thing, but I'm not sure.  ([Seeking Other Perspectives Here] (https://github.com/solvingj/eff-algebraic-effect-notes/issues/new))
+This whole formalized pattern taken together is unique, but there are familiar pieces here.  In one respect, it has elements of the "Execute around" pattern. In another respect, it's shares some elements with the `out parameters` used in C#.   It also has an element of the visitor pattern based on the effect subtypes.  It seems like a kind of clever strategy and convention, but unlike the majority of other "clever strategies" I've seen, this one comes based on a complete algebra, and a massive body of successful research and trial. In C#, the implementation uses a lot of interface and inheritence.  I guess in FP languages, they would use higher-kinded types to achieve the same thing, but I'm not sure.  [Seeking Other Perspectives Here] (https://github.com/solvingj/eff-algebraic-effect-notes/issues/new))\
 
 ## Developer Experience - Compiler Considerations  
 
