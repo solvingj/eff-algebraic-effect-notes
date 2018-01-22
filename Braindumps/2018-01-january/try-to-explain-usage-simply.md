@@ -1,11 +1,15 @@
+Richard Feynman is quoted as saying "If you can't explain something simply, you don't understand it well enough".  Indeed I find that trying to explain something shows me how little I understand, and ultimately causes me to go back and do more research, so this will be my ever-evolving introduction the use of effects to my former self (and other developers discovering the concept). 
+
 ## Starting from Simple Example  
+I found this fantastic example from @nessos, from his C# implementation where Eff is used to model reading data from ASP.NET's `AppSettings`. This is basically identical to the process of reading environment variables.  It's a great example because reading environment variables is a very common seemingly trivial task that many programmers have done before, but for which there is a surprisingly broad range of "techniques" to do it across various languages.  To me, this lack a uniform approach indicates that there is a deeper and more subtle problem which "simplistic" techniques fail to address, making them all seem flawed or incomplete. I think it's important to formally recognize that despite seeming simple, it is an "effectful operation", and inherits complexities as a result of that fact. With this in mind, we can now try to use the formalized mechanism of Algebraic Effects to model it thoroughly, and hope to end up with a better pattern... hopefully a pattern which can work across any language that has a library for Algebraic Effects.  
 
-Here's an example from the C# implementation where Eff is used to model reading data from Asp.Net's `AppSettings`. This is a very common "effectful task", basically identical to reading environment variables, so in theory the pattern would be virtually identical. 
+Along with the example below, is an attempt explanation of the process the author used to model "a simple read" of settings an an Effect in C#.  Based on this explanation, the hope is that a developer without minimal understanding of what Effects and Handlers are, can follow the pattern and create a custom effect and handler of their own.  
 
+## C# Example
 https://github.com/nessos/Eff/blob/master/src/examples/Eff.Examples.Config/Program.cs
 
-(Note, the below isn't quite accurate, I see now how the Eff works, so I have to re-write this)
-From this example, it seems the way to implement Eff is to use the two provided abstract base classes to derive a bunch of related `Handler` and `Effect` classes.  The individual `Effect` classes encapsulate the data/state that you want to get back from operations, and the `Handler` encapsulates the behavior/functions for a related set of `Effect` classes.  a `Handler`: the `Handle()` method.  Finally, there's the `Eff<T>` class. The pattern for using these together becomes: 
+* Note: The section below is inaccurate and needs clarification*
+ It seems the way to implement Eff involves the two provided abstract base classes to derive a bunch of related `Handler` and `Effect` classes.  The individual `Effect` classes encapsulate the data/state that you want to get back from operations, and the `Handler` encapsulates the behavior/functions for a related set of `Effect` classes.  a `Handler`: the `Handle()` method.  Finally, there's the `Eff<T>` class. 
 
 1. Create an instance of a custom `Handler<T>` class
 2. Create an instance of the related custom `Effect<T>`
