@@ -8,8 +8,9 @@ Along with the example below, is an attempt explanation of the process the autho
 ## C# Example
 https://github.com/nessos/Eff/blob/master/src/examples/Eff.Examples.Config/Program.cs
 
-* Note: The section below is inaccurate and needs clarification*
- It seems the way to implement Eff involves the two provided abstract base classes to derive a bunch of related `Handler` and `Effect` classes.  The individual `Effect` classes encapsulate the data/state that you want to get back from operations, and the `Handler` encapsulates the behavior/functions for a related set of `Effect` classes.  a `Handler`: the `Handle()` method.  Finally, there's the `Eff<T>` class. 
+* Note: The section below is inaccurate and needs clarification*  
+
+It seems the way to implement Eff involves the two provided abstract base classes to derive a bunch of related `Handler` and `Effect` classes.  The individual `Effect` classes encapsulate the data/state that you want to get back from operations, and the `Handler` encapsulates the behavior/functions for a related set of `Effect` classes.  a `Handler`: the `Handle()` method.  Finally, there's the `Eff<T>` class. 
 
 1. Create an instance of a custom `Handler<T>` class
 2. Create an instance of the related custom `Effect<T>`
