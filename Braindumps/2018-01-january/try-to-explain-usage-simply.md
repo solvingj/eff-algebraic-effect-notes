@@ -8,7 +8,7 @@ Along with the example below, is an attempt explanation of the process the autho
 ## C# Example
 https://github.com/nessos/Eff/blob/master/src/examples/Eff.Examples.Config/Program.cs
 
-**Note: The section below is inaccurate and needs clarification**
+**Note: After trying to step through the debug process with Eff, I determined that the mental model below is wrong.  There are far more abstractions involved, and more implicit steps and behaviors than listed below. I am currently seeking help creating a corrected explanation.**
 
 It seems the way to implement Eff involves the two provided abstract base classes to derive a bunch of related `Handler` and `Effect` classes.  The individual `Effect` classes encapsulate the data/state that you want to get back from operations, and the `Handler` encapsulates the behavior/functions for a related set of `Effect` classes.  a `Handler`: the `Handle()` method.  Finally, there's the `Eff<T>` class. 
 
